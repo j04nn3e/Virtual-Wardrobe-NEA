@@ -1,0 +1,11 @@
+import tkinter as tk
+import tkinter.font as tkFont
+
+root = tk.Tk()
+fonts = list(tkFont.families())
+fonts.sort()
+
+for f in fonts:
+    print(f)
+
+root.destroy()
