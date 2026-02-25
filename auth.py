@@ -1,3 +1,4 @@
+#importing all necessary libraries and functions or classes from other files
 import tkinter as tk
 from tkinter import *
 import sqlite3
@@ -5,7 +6,6 @@ from PIL import Image,ImageTk
 from tkinter import messagebox
 from database import add_user, validate_user, get_user_id
 from upload import UploadPage  
-
 
 
 class Login(tk.Frame):
@@ -20,27 +20,24 @@ class Login(tk.Frame):
                          )
         label.pack(pady=90) 
 
+        #making these as local variables so I dont have to keep rewriting them again as they are used a lot in this file
         entry_font = ("Open sans", 25, "bold")
         entry_width = 40
         label_width = 20
 
-        #username entry
+        #username entry creation
         username_frame = tk.Frame(self, bg="#E3A869")
         username_frame.pack(pady=10, padx=100, fill="x")
-
         username_label = tk.Label(username_frame, text="Username:", bg="#E3A869", font=entry_font, width=label_width, anchor="w")
         username_label.grid(row=0, column=0, sticky="w")
-
         self.username_entry = tk.Entry(username_frame, width=entry_width, font=entry_font, highlightthickness=2.4)
         self.username_entry.grid(row=0, column=1)
         
-        #password entry
+        #password entry creation
         password_frame = tk.Frame(self, bg="#E3A869")
         password_frame.pack(pady=26, padx=100, fill="x")
-
         password_label = tk.Label(password_frame, text="Password:", bg="#E3A869", font=entry_font, width=label_width, anchor="w")
         password_label.grid(row=0, column=0, sticky="w")
-
         self.password_entry = tk.Entry(password_frame, width=entry_width, font=entry_font, show="*", highlightthickness=2.4)
         self.password_entry.grid(row=0, column=1)
 
@@ -54,27 +51,28 @@ class Login(tk.Frame):
         self.toggle_button = tk.Button(password_frame, image=self.show_icon, relief=FLAT, bd=0, command=self.toggle_pw)
         self.toggle_button.grid(row=0,column=2,padx=30)
 
-        #login button () make sure to add command
+        #login button and commnad to link the button to its respective funtion
         login_button = tk.Button(self, text="Log in", width=18, anchor="center", bg="#8B1A1A",font=entry_font, overrelief=SUNKEN, command=lambda: self.handle_login(controller)) 
         login_button.pack(side="right",pady=13, padx=200)
 
-        #signup button
+        #signup button and command to link the button to its respective function
         signup_link = tk.Label(self, text="Don't have an account? Sign up here.", fg="#8B3A3A", cursor="hand2", bg="#E3A869", font=("Arial", 20, "underline"))
         signup_link.pack(pady=130)
         signup_link.bind("<Button-1>", lambda e: controller(Signup))  
 
 
     def toggle_pw(self): #code for the toggle button interactivity
-            if self.showing:
+            if self.showing: #showing password by replacing toggle icon with open eye
                 self.password_entry.config(show="*")
                 self.toggle_button.config(image=self.show_icon)
                 self.showing=False
 
-            else:
+            else: # hiding password by replacing toggle button with the closed eye
                 self.password_entry.config(show="")
                 self.toggle_button.config(image=self.hide_icon)
                 self.showing = True   
 
+    #function for the login button that compares username and password inputted to values in database 
     def handle_login(self, controller):
          username = self.username_entry.get()
          password = self.password_entry.get()
@@ -84,18 +82,19 @@ class Login(tk.Frame):
               messagebox.showerror("Error", "Please enter valid inputs.")
               return
 
+    
          if validate_user(username, password):
-              #gets the user id and stores it so other frames can access it
+              #gets the user id and stores it so other pages can access it
               user_id = get_user_id(username, password)
               self.master.master.current_user_id=user_id
               self.master.master.current_username = username
-              self.master.master.update_header()
-              self.master.master.show_tab_btn()
+              self.master.master.update_header()#updates the header bar to the users' username
+              self.master.master.show_tab_btn()#shows the tab buttons once the user has logged in
               controller(UploadPage)
-              self.master.master.current_page = "Upload"
-              self.master.master.highlighted_tab()
+              self.master.master.current_page = "Upload" #automatically transfers user to upload page once they have successfully logged in
+              self.master.master.highlighted_tab() #highlight the tab for the page that the user is currently on
          else:
-              messagebox.showerror("Error", "Invalid username or password.")
+              messagebox.showerror("Error", "Invalid username or password.")#if password or username doesnt match values in database
    
 
 class Signup(tk.Frame):
@@ -118,23 +117,19 @@ class Signup(tk.Frame):
         entry_width = 40
         label_width = 20
 
-        #username entry
+        #username entry creation
         username_frame = tk.Frame(self, bg="#E3A869")
         username_frame.pack(pady=4, padx=100, fill="x")
-
         username_label = tk.Label(username_frame, text="Username:", bg="#E3A869", font=entry_font, width=label_width, anchor="w")
         username_label.grid(row=0, column=0, sticky="w")
-
         self.username_entry = tk.Entry(username_frame, width=entry_width, font=entry_font, highlightthickness=2.4)
         self.username_entry.grid(row=0, column=1)
         
-        #password entry
+        #password entry creation
         password_frame = tk.Frame(self, bg="#E3A869")
         password_frame.pack(pady=13, padx=100, fill="x")
-
         password_label = tk.Label(password_frame, text="Password:", bg="#E3A869", font=entry_font, width=label_width, anchor="w")
         password_label.grid(row=0, column=0, sticky="w")
-
         self.password_entry = tk.Entry(password_frame, width=entry_width, font=entry_font, show="*", highlightthickness=2.4)
         self.password_entry.grid(row=0, column=1)
 
@@ -167,6 +162,7 @@ class Signup(tk.Frame):
         login_link.pack(pady=100, padx=150)
         login_link.bind("<Button-1>", lambda e: controller(Login))   
 
+    #function that hides/shows the toggle icon image 
     def toggle_pw(self):
             if self.showing:
                 self.password_entry.config(show="*")
@@ -180,7 +176,7 @@ class Signup(tk.Frame):
 
 #storing the details into the database
     def handle_signup(self):
-         username = self.username_entry.get()
+         username = self.username_entry.get() 
          password = self.password_entry.get()
          confirm_p = self.confirmp_entry.get()   
 
@@ -190,7 +186,7 @@ class Signup(tk.Frame):
 
          success = add_user(username, password)
     
-         if success:
+         if success: #if the success value from the function in database returns true
               messagebox.showinfo("Account created successfully","Now go to log in page")
          else:
               messagebox.showerror("Error", "Username already exists") 

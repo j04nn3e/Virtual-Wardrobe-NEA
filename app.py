@@ -1,6 +1,6 @@
 #main page file
 
-#importing all of the necessary libraries aswell as the classes from other files 
+#importing all of the necessary libraries aswell as the classes and functions from other files 
 from tkinter import *
 from datetime import *
 from calendar import *
@@ -13,17 +13,16 @@ from database import init_db
 from outfit import DesignerPage
 from calendarp import CalendarPage
 
-#other pages will be imported later
 
 #calling function in database.py that contain all of the tables created
 init_db()
 
 #creating the window for my app
 root = Tk()
-root.title("Virtual Wardrobe App")
+root.title("Virtual Wardrobe App")#name of the app
 root.geometry("500x500") 
-root.configure(bg="#E3A869") #bgc for window
-root.state("zoomed")
+root.configure(bg="#E3A869") #background colour for window
+root.state("zoomed")#as soon as users run the app they are on fully screen
 
 #initilaising all of the pages, usernames and ids to none so that every time app is reopen it resets
 root.current_page = None
@@ -60,9 +59,9 @@ def update_header():
     else:
         root.vw_title_label.config(text="Virtual Wardrobe")
 
-root.update_header = update_header        
+root.update_header = update_header #actually updates the header name        
 
-#tab buttons
+#tab buttons creation
 tab_font = ("Brush Script MT", 15, "bold")
 tab_buttons = {}
 active_tab_colour = "#B4824C"
@@ -77,6 +76,7 @@ def highlighted_tab(self):
             btn.config(bg=inactive_tab_colour, fg="white")
 
 root.highlighted_tab = highlighted_tab        
+
 
 def create_tab_btn(text, page_class):
     #function that allows user to switch page to tab that they clicked on
@@ -94,6 +94,7 @@ def create_tab_btn(text, page_class):
                     activebackground=active_tab_colour, activeforeground="black", relief="sunken",padx=20, pady=5, command=switch_page)
     btn.pack(side="left", padx=25)
 
+    #stores value of the button in tab button dictionary
     tab_buttons[text]=btn
     return btn
 
@@ -117,7 +118,7 @@ def show_tab_btn():
     wardrobe_btn.pack(side="right", padx=25)
     upload_btn.pack(side="right", padx=25)
 
-root.show_tab_btn = show_tab_btn
+root.show_tab_btn = show_tab_btn #running the function to show the tab buttons
 
 #function that allows user to log out of their account by clicking on logout button
 def logout():
@@ -156,7 +157,7 @@ container.pack(side="top", fill="both", expand=True)
 container.grid_rowconfigure(0, weight=1)
 container.grid_columnconfigure(0, weight=1)
 
-#create dictionary for frames 
+#create dictionary for frames which are esentially the different pages
 frames = {}
 
 #function that shows each page when it hs been called

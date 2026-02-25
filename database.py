@@ -60,7 +60,7 @@ def add_user(username, password):
     conn=sqlite3.connect("data.db")
     cur = conn.cursor()
     try: 
-        cur.execute('INSERT INTO User_Data (username, password) VALUES (?, ?)', (username, password))
+        cur.execute('INSERT INTO User_Data (username, password) VALUES (?, ?)', (username, password)) #adds the username and password inputted by the user into the correct field in the database
         conn.commit()
         conn.close()
         return True
@@ -75,7 +75,7 @@ def validate_user(username, password):
          conn = sqlite3.connect("data.db")
          cursor = conn.cursor()
 
-         cursor.execute("SELECT * FROM User_Data WHERE username=? AND password=?", (username, password))  
+         cursor.execute("SELECT * FROM User_Data WHERE username=? AND password=?", (username, password)) #searches the database to see if the username and password enetred by the user exists in the database
          result = cursor.fetchone()             
          conn.close() # closing this specific validation connection
          return result is not None
@@ -87,10 +87,10 @@ def save_item(user_id, item_name, image_path, category, colour, season):
           cursor = conn.cursor()
           
           cursor.execute('INSERT INTO Items(user_id, item_name, image_path, category, colour, season) VALUES (?, ?, ?, ?, ?, ?)', 
-                                (user_id, item_name, image_path, category, colour, season))
+                                (user_id, item_name, image_path, category, colour, season)) #inserts the inputted values by the user from the upload page into the database
           conn.commit()
           return True
-     except Exception as e:
+     except Exception as e: #if something goes wrong such as not every input fieldn not having a value
           print("Error saving item.", e)
           return False
      
@@ -98,7 +98,7 @@ def save_item(user_id, item_name, image_path, category, colour, season):
 def get_user_id(username, password):
      conn_local = sqlite3.connect("data.db")
      cur = conn_local.cursor()
-     cur.execute("SELECT user_id FROM User_Data WHERE username=? AND password=?", (username, password)) 
+     cur.execute("SELECT user_id FROM User_Data WHERE username=? AND password=?", (username, password)) #retrieveing the userid with teh matching username and password
      row = cur.fetchone()
      conn_local.close()
      return row[0] if row else None
@@ -119,8 +119,8 @@ def save_outfit(user_id, image_paths):
           cur = conn.cursor()
 
           #create outfit
-          cur.execute("INSERT INTO Outfits (user_id) VALUES (?)", (user_id,))
-          outfit_id = cur.lastrowid
+          cur.execute("INSERT INTO Outfits (user_id) VALUES (?)", (user_id,)) #inserts the user id to the respective outfit
+          outfit_id = cur.lastrowid 
 
           for path in image_paths:
                cur.execute("INSERT INTO Outfit_Items (outfit_id, image_path) VALUES (?, ?)", (outfit_id, path))

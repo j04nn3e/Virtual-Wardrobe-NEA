@@ -1,3 +1,5 @@
+#list for the dropdown menu of category, colour and season that contains all of the values 
+
 CATEGORIES = ["Accessory","Blazer", "Blouse", "Button shirt", "Cardigan", "Coat", 
                      "Dress","Hat", "Hoodie", "Jacket","Jeans", "Joggers", "Leggings", 
                      "Polo shirt", "Scarf", "Shoe", "Shorts", "Skirts", "Sweater", "Tops", 
