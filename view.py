@@ -157,7 +157,7 @@ class WardrobePage(tk.Frame):
 
         #selects item details from the item table only for the currently logged in user
         query= "SELECT id, item_name, image_path, category, colour, season FROM Items WHERE user_id=?" 
-        params=[user_id] # list of search /query parameter
+        params=[user_id] # list of search /query parameters
 
         #applying the filters for search and dropdown
         if self.category_var.get() != 'All':
