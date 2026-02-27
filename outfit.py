@@ -35,18 +35,18 @@ class DesignerPage(tk.Frame):
 
         #creating a frame for the outfits created 
         self.outfit_canvas = tk.Canvas(self.outfit_frame, bg=canvas_bg, highlightthickness=0)
-        self.outfit_canvas.pack(side="left", fill="both", expand=True)
+        self.outfit_canvas.pack(side="left", fill="both", expand=True) #position of the canvas
 
-        outfit_scrollbar = ttk.Scrollbar(self.outfit_frame, orient="vertical", command=self.outfit_canvas.yview)
-        outfit_scrollbar.pack(side="right", fill="y")
+        outfit_scrollbar = ttk.Scrollbar(self.outfit_frame, orient="vertical", command=self.outfit_canvas.yview) #creating scrollbar and setting the scroll to vertical
+        outfit_scrollbar.pack(side="right", fill="y") #position of the scrollbar
 
-        self.outfit_canvas.configure(yscrollcommand=outfit_scrollbar.set)
+        self.outfit_canvas.configure(yscrollcommand=outfit_scrollbar.set) #links vertical scrillbar to canvas
     
-        self.creation_frame = tk.Frame(self.outfit_canvas, bg=canvas_bg)
-        self.creation_frame.config(width=910)
-        self.outfit_canvas.create_window((455,0), window=self.creation_frame, anchor="center")
+        self.creation_frame = tk.Frame(self.outfit_canvas, bg=canvas_bg) #creates frame inside the canvas
+        self.creation_frame.config(width=910) #sisze of the frame
+        self.outfit_canvas.create_window((455,0), window=self.creation_frame, anchor="center") #creates frame as a window object
 
-        self.creation_frame.bind("<Configure>", lambda e: self.outfit_canvas.configure(scrollregion=self.outfit_canvas.bbox("all")))
+        self.creation_frame.bind("<Configure>", lambda e: self.outfit_canvas.configure(scrollregion=self.outfit_canvas.bbox("all"))) #triggers whenever the frame size changes, scrollregion matches the contents of the box 
       
         #stack to track items
         self.outfit_items = []
@@ -57,11 +57,11 @@ class DesignerPage(tk.Frame):
         control_frame = tk.Frame(self.outfit_frame, bg=canvas_bg)
         control_frame.place(relx=0.95,rely=0.97, anchor="se")
 
-        undo_img = Image.open("images/undo_icon.png").resize((30,30))
-        self.undo_icon = ImageTk.PhotoImage(undo_img)
+        undo_img = Image.open("images/undo_icon.png").resize((30,30))#image file with resizing
+        self.undo_icon = ImageTk.PhotoImage(undo_img) #changes it to tkinter suitable format
 
-        clear_img = Image.open("images/bin_icon.png").resize((30,30))
-        self.clear_icon = ImageTk.PhotoImage(clear_img)
+        clear_img = Image.open("images/bin_icon.png").resize((30,30)) #image file with resizing
+        self.clear_icon = ImageTk.PhotoImage(clear_img) #changes it to tkinter suitable format
 
         #BUTTONS IMAGE BASED
         undo_btn = tk.Button(control_frame, image=self.undo_icon, bg=canvas_bg, bd=0, command=self.undo_last_item)
@@ -89,7 +89,7 @@ class DesignerPage(tk.Frame):
             self.panel_frame, text="Your Wardrobe",
             bg=wardrobe_panel_bg, fg=canvas_bg, font=("Brush Script MT", 25, "bold")
         )
-        self.panel_label.pack(pady=10)
+        self.panel_label.pack(pady=10) #position of the panel label
 
 
         #RECOMMENDATION BUTTON 

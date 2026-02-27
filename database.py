@@ -138,12 +138,12 @@ def save_outfit_date(user_id, outfit_id, date):
           conn=sqlite3.connect("data.db")
           cur=conn.cursor()
           cur.execute("INSERT INTO Calendar_Outfits (user_id, outfit_id, date) VALUES (?,?,?)",
-                      (user_id, outfit_id, date))
+                      (user_id, outfit_id, date)) #inserts value into database
           conn.commit()
           conn.close()
           return True
      except Exception as e:
-          print("Error savibg outfit to date", e)
+          print("Error saving outfit to date", e)
           return False
 
 

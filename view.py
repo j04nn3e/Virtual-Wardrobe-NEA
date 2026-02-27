@@ -56,24 +56,24 @@ class WardrobePage(tk.Frame):
         #filter drop down panel
 
         #creating the icons needed
-        menu_img = Image.open("images/menu_icon.png").resize((40,40))
-        self.menu_icon = ImageTk.PhotoImage(menu_img)
-        close_img = Image.open("images/close_icon.png").resize((40,40))
+        menu_img = Image.open("images/menu_icon.png").resize((40,40)) #opens image file and resizes it
+        self.menu_icon = ImageTk.PhotoImage(menu_img) #changes it to tkinter compatiable format
+        close_img = Image.open("images/close_icon.png").resize((40,40)) #same as above
         self.close_icon = ImageTk.PhotoImage(close_img)
-        search_img = Image.open("images/search_icon.png").resize((30,30))
+        search_img = Image.open("images/search_icon.png").resize((30,30)) #same as abobe
         self.search_icon = ImageTk.PhotoImage(search_img)
 
         #toggle button/ switch between menu and close icon
         self.menu_button = tk.Button(self, image=self.menu_icon, bd=0, bg=canvas_bg, activebackground=canvas_bg, command=self.toggle_panel)
-        self.menu_button.place(relx=0.94, rely=0.03)
+        self.menu_button.place(relx=0.94, rely=0.03) #position of the button
 
         #creating the filter panel
         self.filter_panel = tk.Frame(self, bg=canvas_bg, width=250, height=750)
-        self.filter_panel.place(x=1600, y=72)
+        self.filter_panel.place(x=1600, y=72) #position of the panel
 
         #search bar creation/  outside frame for now
         search_frame = tk.Frame(self.filter_panel, bg=canvas_bg, bd=1, relief="sunken")
-        search_frame.pack(pady=5, padx=10, fill="x")
+        search_frame.pack(pady=5, padx=10, fill="x") #position of the frame
 
         self.search_entry = tk.Entry(search_frame, font=("Open Sans", 12), bd=0) #creates a entry box inside the search frame
         self.search_entry.insert(0, "Search for item...")#placeholder text so user knows what entry box is for
